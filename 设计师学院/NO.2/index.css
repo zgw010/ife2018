@@ -1,0 +1,20 @@
+div {
+  width: 100px;
+  height: 100px;
+  background-color: black;
+}
+.box2 {
+   transform:skewX(30deg);
+}
+.box3 {
+  transform : scale(0.5,1);
+}
+.box4 {
+  transform: rotate(45deg);
+}
+.box5 {
+  transform: translate(10px,20px);
+}
+.box6 {
+  transform: skewX(30deg) scale(0.5, 1) rotate(45deg) translate(10px, 20px);
+}
