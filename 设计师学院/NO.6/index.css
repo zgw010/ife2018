@@ -1,0 +1,103 @@
+* {
+  border: 0;
+  margin: 0;
+}
+.slider {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+}
+
+
+.screen {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+.screen img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+
+.select{
+  bottom: 175px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  z-index: 100000;
+}
+.select img {
+  margin: 8px;
+  width: 235px;
+  height: 130px;
+  opacity: 0.6 ;
+  border-radius: 2%;
+}
+.select img:hover {
+  opacity: 0.9;
+}
+/* 以下是动画 */
+.img1 {
+  animation: animation1 0.5s ease-out;
+}
+
+.img2 {
+  animation: animation2 0.5s ease-out;
+}
+
+.img3 {
+  animation: animation3 1s ease-in;
+}
+
+.img4 {
+  animation: animation4 1s ease-out;
+}
+
+.img5 {
+  animation: animation5 0.7s ease-in-out;
+}
+@keyframes animation1 {
+  from {
+    left: -500px;
+  }
+  to {
+    left: 0;
+  }
+}
+@keyframes animation2 {
+  from {
+    top: 350px;
+  }
+  to {
+    top: 0;
+  }
+}
+@keyframes animation3 {
+  from {
+    transform: scale(0.1);
+  }
+  to {
+    transform: scale(1.0);
+  }
+}
+@keyframes animation4 {
+  from {
+    transform: scale(2.0);
+  }
+
+  to {
+    transform: scale(1.0);
+  }
+}
+@keyframes animation5 {
+  from {
+    transform: scale(0.1) rotate(-360deg);
+  }
+
+  to {
+    transform: scale(1.0) rotate(0);
+  }
+}

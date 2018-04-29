@@ -1,0 +1,109 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  background: black;
+}
+
+.box {
+  height: 400px;
+  width: 400px;
+  position: absolute;
+  /* 以下五行为了居中 cube */
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  
+  -webkit-perspective: 400px;
+  perspective: 400px;
+}
+
+.cube {
+  height: 200px;
+  width: 200px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
+.cube div {
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  border: 2px solid rgba(70, 161, 222, 0.5);
+  background: rgba(49, 52, 197, 0.3);
+}
+
+.cube :nth-child(1) {
+  /* 上面 */
+  -webkit-transform: rotateX(90deg) translateZ(100px);
+  transform: rotateX(90deg) translateZ(100px);
+}
+
+.cube :nth-child(2) {
+  /* 下面 */
+  -webkit-transform: rotateX(90deg) translateZ(-100px);
+  transform: rotateX(90deg) translateZ(-100px);
+}
+
+.cube :nth-child(3) {
+  /* 右边那块 */
+  -webkit-transform: rotateY(90deg) translateZ(100px);
+  transform: rotateY(90deg) translateZ(100px);
+}
+
+.cube :nth-child(4) {
+  /* 左边那块 */
+  -webkit-transform: rotateY(90deg) translateZ(-100px);
+  transform: rotateY(90deg) translateZ(-100px);
+}
+
+.cube :nth-child(5) {
+  /* 前面 */
+  -webkit-transform: translateZ(100px);
+  transform: translateZ(100px);
+}
+
+.cube :nth-child(6) {
+  /* 后面 */
+  -webkit-transform: translateZ(-100px);
+  transform: translateZ(-100px);
+}
+
+@-webkit-keyframes cube {
+  from {
+    -webkit-transform: rotateY(360deg);
+    transform: rotateY(360deg);
+  }
+  to {
+    -webkit-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+  }
+}
+
+@keyframes cube {
+  from {
+    -webkit-transform: rotateY(360deg);
+    transform: rotateY(360deg);
+  }
+  to {
+    -webkit-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+  }
+}
+
+.cube:hover {
+  -webkit-animation: cube 4s linear infinite;
+  animation: cube 9s linear infinite;
+}
