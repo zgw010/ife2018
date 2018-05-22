@@ -99,14 +99,14 @@
       console.log(keyName)
       if(keyName==="ArrowUp"){
         if(row>0){
-          hintLi[row].classList.toggle("green");
+          hintLi[row].classList.remove("green");
           --row;
           hintLi[row].classList.add("green");
         }
       }
       else if(keyName==="ArrowDown"){
         if(row<4){
-          hintLi[row].classList.toggle("green");
+          hintLi[row].classList.remove("green");
           ++row;
           hintLi[row].classList.add("green");
         }
@@ -122,7 +122,7 @@
         e.classList.add("green");
       });
       e.addEventListener("mouseout",function(){
-        e.classList.toggle("green");
+        e.classList.remove("green");
       });
       e.addEventListener("click",function(){
         // 解码
