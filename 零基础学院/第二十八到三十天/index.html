@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    #email-sug-wrapper {
+      display: none;
+      padding: 0;
+      margin: 0;
+      list-style:none;
+    }
+    .green {
+      background-color: #B7DEEC;
+    }
+    li:hover {
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <input id="email-input" type="text">
+    <ul id="email-sug-wrapper" class="email-sug">
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>
+  <script>
+    // document.onload=function(){
+    //   const emailInput = document.querySelector("#email-input");
+    //   emailInput.focus()
+    // }
+    const postfixList = ['163.com', 'gmail.com', '126.com', 'qq.com', '263.net'];
+    const emailInput = document.querySelector("#email-input");
+    const emailSugWrapper = document.querySelector("#email-sug-wrapper");
+    const hintLi = document.querySelectorAll("li");
+    let row=0;
+    hintLi[0].classList.add("green");
+    function filtration(value){
+      const index=value.indexOf("@");
+      let postfixList2=[];
+      if(index===-1){
+        postfixList2=postfixList;
+      }else {
+        const at=value.slice(index+1);
+        value=value.slice(0,index);
+        for(let i=0,len=postfixList.length;i<len;++i){
+          if(postfixList[i].indexOf(at)!==-1){
+            postfixList2.push(postfixList[i])
+          }
+        }
+        console.log("postfixList2.length",postfixList2.length)
+        if(postfixList2.length===0){
+          postfixList2=postfixList;
+        }
+      }
+      for(let i=0,len=postfixList2.length;i<len;++i){
+        // 转码
+        let s = "";
+        s = value.replace(/&/g,"&amp;");
+        s = s.replace(/</g,"&lt;");
+        s = s.replace(/>/g,"&gt;");
+        s = s.replace(/ /g,"&nbsp;");
+        s = s.replace(/\'/g,"&#39;");
+        s = s.replace(/\"/g,"&quot;");
+        hintLi[i].innerHTML=s+"@"+postfixList2[i]
+      }
+      for(let i=postfixList2.length,len=postfixList.length;i<len;++i){
+        hintLi[i].innerHTML=""
+      }
+    }
+    emailInput.addEventListener("input",function hint(){
+      const emailInputValue=emailInput.value.trim()
+      // console.log(emailInput.value)
+      if(emailInputValue===""){
+        emailSugWrapper.style.display="none";
+      }else{
+        emailSugWrapper.style.display="block";
+        filtration(emailInputValue);
+      }
+    });
+    // input获得焦点时添加keydown事件监听,input失去焦点时移除keydown事件监听
+    emailInput.addEventListener("blur",function(){
+      console.log("blur")
+      document.removeEventListener('keydown',keydown)
+    })
+    emailInput.addEventListener("focus",function(){
+      console.log("focus")
+      document.addEventListener('keydown',keydown)
+    })
+    function keydown(event){
+      const keyName = event.key;
+      console.log(keyName)
+      if(keyName==="ArrowUp"){
+        if(row>0){
+          hintLi[row].classList.toggle("green");
+          --row;
+          hintLi[row].classList.add("green");
+        }
+      }
+      else if(keyName==="ArrowDown"){
+        if(row<4){
+          hintLi[row].classList.toggle("green");
+          ++row;
+          hintLi[row].classList.add("green");
+        }
+      } else if (keyName==="Enter"){
+        console.log(hintLi[row].innerHTML)
+        emailInput.value=hintLi[row].innerHTML;
+      }else if(keyName==="Escape"){
+        emailInput.select();
+      }
+    }
+    hintLi.forEach(e=>{
+      e.addEventListener("mouseover",function(){
+        e.classList.add("green");
+      });
+      e.addEventListener("mouseout",function(){
+        e.classList.toggle("green");
+      });
+      e.addEventListener("click",function(){
+        // 解码
+        let s = "";
+        s = e.innerHTML.replace(/&amp;/g,"&");
+        s = s.replace(/&lt;/g,"<");
+        s = s.replace(/&gt;/g,">");
+        s = s.replace(/&nbsp;/g," ");
+        s = s.replace(/&#39;/g,"\'");
+        s = s.replace(/&quot;/g,"\"");
+        emailInput.value=s;
+        emailSugWrapper.style.display="none";
+        emailInput.focus();
+
+      });
+    })
+    emailInput.focus();
+  </script>
+</body>
+</html>
