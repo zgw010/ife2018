@@ -1,0 +1,9 @@
+input {
+  width: 50px;
+}
+button:hover {
+  cursor: pointer;
+}
+table {
+  width: 100%;
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link href="index.css" rel="stylesheet"/>
+  <script src="https://cdn.bootcss.com/echarts/4.1.0.rc2/echarts-en.common.min.js"></script>
+</head>
+<body>
+  <div id="product">
+    <input type="checkbox" class="product" value="手机">
+    <label>手机</label>
+
+    <input type="checkbox" class="product" value="笔记本">
+    <label>笔记本</label>
+    
+    <input type="checkbox" class="product" value="智能音箱">
+    <label>智能音箱</label>
+
+    <input type="checkbox" id="productAll" value="全选">
+    <label>全选</label>
+  </div>
+  <div id="region">
+    <input type="checkbox" class="region" value="华东">
+    <label>华东</label>
+
+    <input type="checkbox" class="region" value="华北">
+    <label>华北</label>
+    
+    <input type="checkbox" class="region" value="华南">
+    <label>华南</label>
+
+    <input type="checkbox" id="regionAll" value="全选">
+    <label>全选</label>
+  </div>
+  <div id="main" style="width: 600px;height:400px;"></div>
+  <div id="table-wrapper">
+    <table border="1" id="data">
+      <tr>
+        <th>地区</th>
+        <th>商品</th>
+        <th>1月</th>
+        <th>2月</th>
+        <th>3月</th>
+        <th>4月</th>
+        <th>5月</th>
+        <th>6月</th>
+        <th>7月</th>
+        <th>8月</th>
+        <th>9月</th>
+        <th>10月</th>
+        <th>11月</th>
+        <th>12月</th>
+      </tr>
+    </table>
+    <button id="save">保存</button>
+  </div>
+  <script src="index.js"></script>
+</body>
+</html>

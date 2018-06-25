@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="product">
+    <input type="checkbox" class="product" value="手机">
+    <label>手机</label>
+
+    <input type="checkbox" class="product" value="笔记本">
+    <label>笔记本</label>
+    
+    <input type="checkbox" class="product" value="智能音箱">
+    <label>智能音箱</label>
+
+    <input type="checkbox" id="productAll" value="全选">
+    <label>全选</label>
+  </div>
+  <div id="region">
+    <input type="checkbox" class="region" value="华东">
+    <label>华东</label>
+
+    <input type="checkbox" class="region" value="华北">
+    <label>华北</label>
+    
+    <input type="checkbox" class="region" value="华南">
+    <label>华南</label>
+
+    <input type="checkbox" id="regionAll" value="全选">
+    <label>全选</label>
+  </div>
+  <div id="table-wrapper">
+    <table border="1" id="data">
+      <tr>
+        <td>地区</td>
+        <td>商品</td>
+        <td>1月</td>
+        <td>2月</td>
+        <td>3月</td>
+        <td>4月</td>
+        <td>5月</td>
+        <td>6月</td>
+        <td>7月</td>
+        <td>8月</td>
+        <td>9月</td>
+        <td>10月</td>
+        <td>11月</td>
+        <td>12月</td>
+      </tr>
+    </table>
+  </div>
+  <script>
+let sourceData = [
+    {
+        product: "手机",
+        region: "华东",
+        sale: [120, 100, 140, 160, 180, 185, 190, 210, 230, 245, 255, 270]
+    }, {
+        product: "手机",
+        region: "华北",
+        sale: [80, 70, 90, 110, 130, 145, 150, 160, 170, 185, 190, 200]
+    }, {
+        product: "手机",
+        region: "华南",
+        sale: [220, 200, 240, 250, 260, 270, 280, 295, 310, 335, 355, 380]
+    }, {
+        product: "笔记本",
+        region: "华东",
+        sale: [50, 60, 80, 110, 30, 20, 70, 30, 420, 30, 20, 20]
+    }, {
+        product: "笔记本",
+        region: "华北",
+        sale: [30, 35, 50, 70, 20, 15, 30, 50, 710, 130, 20, 20]
+    }, {
+        product: "笔记本",
+        region: "华南",
+        sale: [80, 120, 130, 140, 70, 75, 120, 90, 550, 120, 110, 100]
+    }, {
+        product: "智能音箱",
+        region: "华东",
+        sale: [10, 30, 4, 5, 6, 5, 4, 5, 6, 5, 5, 25]
+    }, {
+        product: "智能音箱",
+        region: "华北",
+        sale: [15, 50, 15, 15, 12, 11, 11, 12, 12, 14, 12, 40]
+    }, {
+        product: "智能音箱",
+        region: "华南",
+        sale: [10, 40, 10, 6, 5, 6, 8, 6, 6, 6, 7, 26]
+    }
+]
+const region=document.getElementById('region');
+const product=document.getElementById('product');
+const data=document.getElementById('data');
+const regionAll=document.getElementById('regionAll');
+const productAll=document.getElementById('productAll');
+const regionCheck=document.getElementsByClassName('region');
+const productCheck=document.getElementsByClassName('product');
+let tmp=[],
+    checkedRegion=[],
+    checkedProduct=[];
+let headData="",
+    bodyData="";
+
+regionAll.addEventListener('click',regionAllhandle)
+function regionAllhandle(){
+  if(regionAll.checked===true){
+    for(let i=0,len=regionCheck.length;i<len;++i){
+      regionCheck[i].checked=true
+    }
+  }
+
+}
+productAll.addEventListener('click',productAllhandle)
+function productAllhandle(){
+  if(productAll.checked===true){
+    for(let i=0,len=productCheck.length;i<len;++i){
+      productCheck[i].checked=true
+    }
+  }
+
+}
+function query(region,product){
+  for(let i=0,len=sourceData.length;i<len;++i){
+    if(sourceData[i].region===region&&sourceData[i].product===product){
+      return `
+        <td>${sourceData[i].sale[0]}</td>
+        <td>${sourceData[i].sale[1]}</td>
+        <td>${sourceData[i].sale[2]}</td>
+        <td>${sourceData[i].sale[3]}</td>
+        <td>${sourceData[i].sale[4]}</td>
+        <td>${sourceData[i].sale[5]}</td>
+        <td>${sourceData[i].sale[6]}</td>
+        <td>${sourceData[i].sale[7]}</td>
+        <td>${sourceData[i].sale[8]}</td>
+        <td>${sourceData[i].sale[9]}</td>
+        <td>${sourceData[i].sale[10]}</td>
+        <td>${sourceData[i].sale[11]}</td>
+      `;
+    }
+  }
+}
+function renderTable(){
+  const productLen=checkedProduct.length;
+  const regionLen=checkedRegion.length;
+  headData=`
+    <tr>
+      <td>地区</td>
+      <td>商品</td>
+      <td>1月</td>
+      <td>2月</td>
+      <td>3月</td>
+      <td>4月</td>
+      <td>5月</td>
+      <td>6月</td>
+      <td>7月</td>
+      <td>8月</td>
+      <td>9月</td>
+      <td>10月</td>
+      <td>11月</td>
+      <td>12月</td>
+    </tr>
+    `;
+  bodyData="";
+  if(regionLen===1&&productLen>0){
+    bodyData+=`
+      <tr>
+        <td rowspan=${productLen}>${checkedRegion[0]}</td>
+        <td>${checkedProduct[0]}</td>
+        ${query(checkedRegion[0],checkedProduct[0])}
+      </tr>
+      `;
+    for(let i=1;i<productLen;++i){
+      bodyData+=`
+      <tr>
+        <td>${checkedProduct[i]}</td>
+        ${query(checkedRegion[0],checkedProduct[i])}
+      </tr>
+      `;
+    }
+  } else if(regionLen>0&&productLen>0) {
+    headData=`
+    <tr>
+        <td>商品</td>
+        <td>地区</td>
+        <td>1月</td>
+        <td>2月</td>
+        <td>3月</td>
+        <td>4月</td>
+        <td>5月</td>
+        <td>6月</td>
+        <td>7月</td>
+        <td>8月</td>
+        <td>9月</td>
+        <td>10月</td>
+        <td>11月</td>
+        <td>12月</td>
+      </tr>
+    `;
+    bodyData="";
+    for(let i=0;i<productLen;++i){
+      bodyData+=`
+        <tr>
+          <td rowspan=${regionLen}>${checkedProduct[i]}</td>
+          <td>${checkedRegion[0]}</td>
+          ${query(checkedRegion[0],checkedProduct[i])}
+        </tr>
+      `;
+      for(let j=1;j<regionLen;++j){
+        bodyData+=`
+          <tr>
+            <td>${checkedRegion[j]}</td>
+            ${query(checkedRegion[j],checkedProduct[i])}
+          </tr>
+          `;
+      }
+    }
+  }
+  data.innerHTML=headData+bodyData;
+}
+product.addEventListener('change',function(){
+  tmp=[];
+  for(let i=0,len=productCheck.length;i<len;++i){
+    if(productCheck[i].checked===true){
+      tmp.push(productCheck[i].value)
+    }
+  }
+  checkedProduct=tmp;
+  console.log(checkedProduct)
+  renderTable()
+})
+region.addEventListener('change',function(){
+  tmp=[];
+  for(let i=0,len=regionCheck.length;i<len;++i){
+    if(regionCheck[i].checked===true){
+      tmp.push(regionCheck[i].value)
+    }
+  }
+  checkedRegion=tmp;
+  console.log(checkedRegion)
+  renderTable()
+})
+  </script>
+</body>
+</html>
